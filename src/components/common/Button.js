@@ -11,12 +11,10 @@ export function FilledBtn(props) {
     />;
 
     return (
-        <div className='mt-8'>
-            <button className={classesBtn}>
-                <span className={classesTxt}>{props.content}</span>
-                {props.icon && iconImage}
-            </button>
-        </div>
+        <button className={classesBtn}>
+            <span className={classesTxt}>{props.content}</span>
+            {props.icon && iconImage}
+        </button>
     )
 }
 

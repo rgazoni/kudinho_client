@@ -4,7 +4,7 @@ import FormNewKudo from './FormNewKudo'
 
 export default function MainNewKudo() {
     return (
-        <Modal title='New Kudo'>
+        <Modal title='New Kudos 🦄'>
             <div>
                 <FormNewKudo />
             </div>

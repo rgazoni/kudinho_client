@@ -7,7 +7,7 @@ export default function Modal(props) {
     return (
         <div className={classes}>
             {/* Modal Header */}
-            <h1 className='text-3xl font-medium my-5 pl-8 text-white'>{props.title || 'Empty Title'}</h1>
+            <h1 className='text-3xl font-medium my-5 pl-8 text-white w-fit'>{props.title || 'Empty Title'}</h1>
             <button className='absolute top-5.5 right-8 text-gray-400 bg-transparent hover:bg-gray-200
             hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center'>
                 <img src={closeModal}

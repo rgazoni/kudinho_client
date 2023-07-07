@@ -3,6 +3,7 @@ import { FilledBtn, HollowedBtn, UnderlinedBtn } from '../common/Button'
 import happyFace from '../../assets/icon/happy_face.svg'
 import Modal from '../common/Modal'
 import MainNewKudo from '../newKudo/MainNewKudo'
+import MainArchived from '../archivedKudos/MainArchived'
 
 export default function Main() {
 
@@ -12,7 +13,8 @@ export default function Main() {
             <FilledBtn content="New Kudo" hasIcon={true} icon={happyFace}/>
             <HollowedBtn content="Read New Kudos"/>
             <UnderlinedBtn content="Archived Kudos"/> */}
-            <MainNewKudo />
+            {/* <MainNewKudo /> */}
+            <MainArchived />
         </div>
     )
 }

@@ -10,6 +10,7 @@ export function InputText(props) {
                 placeholder={props.placeholder}
                 id={props.id}
                 name={props.name}
+                form= {props.form || ''}
                 required={props.required || true}
             />
         </div>
@@ -18,9 +19,9 @@ export function InputText(props) {
 
 export default function FormNewKudo() {
     return (
-        <form id="form_nk" className='pt-7'>
-            <InputText placeholder='From' id='from' name='from' />
-            <InputText placeholder='To' id='to' name='to' />
+        <form id="form_nk" className='pt-3'>
+            <InputText placeholder='From' id='from' name='from' form="form_nk" />
+            <InputText placeholder='To' id='to' name='to' form="form_nk" />
             <div className='flex justify-center mt-6'>
                 <textarea
                     className='p-2 pl-4 rounded w-9/12 bg-gray-600 text-gray-300 focus:outline-none focus:outline-3
@@ -33,6 +34,7 @@ export default function FormNewKudo() {
                     required={true}
                     id="message"
                     name="message"
+                    form="form_nk"
                 ></textarea>
             </div>
         </form>
