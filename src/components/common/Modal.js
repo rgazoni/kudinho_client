@@ -19,7 +19,7 @@ export default function Modal(props) {
             {/* Modal Body */}
             {props.children}
             {/* Modal Footer */}
-            <div className='flex justify-center mt-1 mb-9'>
+            <div className='flex justify-center mt-7 mb-9'>
                 <FilledBtn classBtn='h-11 w-28 rounded-lg' classTxt='text-xl' content='Save'/>
             </div>
         </div>

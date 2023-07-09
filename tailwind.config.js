@@ -10,6 +10,9 @@ module.exports = {
         text_primary: '#262626',
         primary: '#6266F0',
         secondary: '#5c17e5',
+        bg_card_top: '#2D2D2D',
+        bg_card_bottom: '#262626',
+
       },
       // Proportion 1 : .25 rem
       width: {
@@ -17,7 +20,7 @@ module.exports = {
       },
       inset: {
         '5.5': '1.375rem'
-      }
+      },
     },
   },
   plugins: [],
