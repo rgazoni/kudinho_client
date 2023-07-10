@@ -10,7 +10,6 @@ module.exports = withMT({
       // bg-gradient-to-r from-primary to-indigo-900
       colors: {
         dark: "#191919",
-        text_primary: "#262626",
         primary: "#6266F0",
         secondary: "#5c17e5",
         bg_card_top: "#2D2D2D",
