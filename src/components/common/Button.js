@@ -1,7 +1,7 @@
 import React from 'react'
 
 export function FilledBtn(props) {
-    const classesBtn = 'flex space-x-3.5 items-center justify-center bg-primary p-5 rounded-2xl hover:bg-secondary ' + props.classBtn;
+    const classesBtn = 'flex space-x-3.5 items-center justify-center bg-gradient-to-r from-primary to-fuchsia-700 hover:to-fuchsia-600 p-5 rounded-2xl ' + props.classBtn;
     const classesTxt = 'text-white font-medium text-3xl ' + props.classTxt;
 
     const iconImage = <img
