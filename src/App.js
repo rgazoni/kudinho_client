@@ -20,9 +20,9 @@ function App() {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
+        pauseOnFocusLoss={false}
         draggable
-        pauseOnHover
+        pauseOnHover={false}
         theme="light"
       />
       <BrowserRouter>

@@ -31,6 +31,7 @@ export default function Modal(props) {
           classBtn="h-11 w-28 rounded-lg"
           classTxt="text-xl"
           content="Save"
+          onClick={props.onSave}
         />
       </div>
     </div>

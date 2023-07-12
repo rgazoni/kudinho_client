@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel } from "@material-tailwind/react";
 import CarousselItem from "./CarousselItem";
 
-export default function MainReadNewKudos() {
-  const message =
-    "It is not so much for its beauty that the forest makes a claim upon men&apos;s hearts, as for that subtle something, that quality of air that emanation from old trees, that so wonderfully changes and renews a weary spirit.";
+import axios from "axios";
+
+export default function MainReadNewKudos(props) {
+  const [unreadedKudos, setUnreadedKudos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios("http://localhost:3001/api/readnewkudos");
+      setUnreadedKudos(response.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Carousel>
-      <CarousselItem message={message} to="Gabriel" from="Ramon" />
-      <CarousselItem message={message} to="Gabriel" from="Ramon" />
+      {unreadedKudos.map((item, index) => {
+        return (
+          <CarousselItem
+            key={item._id}
+            message={item.message}
+            to={item.to}
+            from={item.from}
+            itemNumber={index + 1}
+            arrLen={unreadedKudos.length}
+          />
+        );
+      })}
     </Carousel>
   );
 }

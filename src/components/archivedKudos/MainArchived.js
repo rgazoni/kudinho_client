@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FilledBtn } from "../common/Button";
 import ArchivedCard from "./ArchivedCard";
 
+import axios from "axios";
+
 export default function MainArchived(props) {
-  const message = "Olá, muito obrigado pelo apoio durante a sprint!";
-  const to = "Gabriel";
-  const from = "Ramon";
+  const [archivedKudos, setArchivedKudos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios("http://localhost:3001/api/archivedkudos");
+      setArchivedKudos(response.data);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="h-full w-full bg-dark">
@@ -20,10 +28,15 @@ export default function MainArchived(props) {
         />
       </div>
       <div className="m-8 flex flex-row flex-grow flex-wrap gap-7">
-        <ArchivedCard message={message} to={to} from={from} />
-        <ArchivedCard message={message} to={to} from={from} />
-        <ArchivedCard message={message} to={to} from={from} />
-        <ArchivedCard message={message} to={to} from={from} />
+        {archivedKudos.map((item) => {
+          return (
+            <ArchivedCard
+              message={item.message}
+              to={item.to}
+              from={item.from}
+            />
+          );
+        })}
       </div>
     </div>
   );
