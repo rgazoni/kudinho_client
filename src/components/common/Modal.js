@@ -27,11 +27,10 @@ export default function Modal(props) {
       {/* Modal Footer */}
       <div className="flex justify-center mt-7 mb-9">
         <FilledBtn
-          path="/"
+          form={props.form}
           classBtn="h-11 w-28 rounded-lg"
           classTxt="text-xl"
           content="Save"
-          onClick={props.onSave}
         />
       </div>
     </div>

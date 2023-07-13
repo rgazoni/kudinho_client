@@ -5,12 +5,16 @@ import happyFace from "../../assets/icon/happy_face.svg";
 import axios from "axios";
 
 export default function Main() {
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios("http://localhost:3001/api/readnewkudos");
-      setAmount(response.data.length);
+      try {
+        const response = await axios("http://localhost:3001/api/readnewkudos");
+        setAmount(response.data.length);
+      } catch (e) {
+        setAmount("");
+      }
     };
     fetchData();
   }, []);

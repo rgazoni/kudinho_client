@@ -11,14 +11,29 @@ export function FilledBtn(props) {
     <img className="h-11" alt={props.altIcon || ""} src={props.icon} />
   );
 
-  return (
+  // Form button has a form id and a submit type related to it
+  const formBtn = (
+    <button className={classesBtn} form={props.form} type="submit">
+      <span className={classesTxt}>{props.content}</span>
+      {props.icon && iconImage}
+    </button>
+  );
+
+  // Default button has navigation link and path
+  const defaultBtn = (
     <Link to={props.path} style={{ textDecoration: "none" }}>
-      <button className={classesBtn} onClick={props.onClick || null}>
+      <button
+        className={classesBtn}
+        onClick={props.onClick || null}
+        type="button"
+      >
         <span className={classesTxt}>{props.content}</span>
         {props.icon && iconImage}
       </button>
     </Link>
   );
+
+  return props.form ? formBtn : defaultBtn;
 }
 
 export function HollowedBtn(props) {

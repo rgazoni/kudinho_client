@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "../common/Modal";
 import FormNewKudo from "./FormNewKudo";
 
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export default function MainNewKudo() {
-  const [to, setTo] = useState("");
-  const [from, setFrom] = useState("");
-  const [message, setMessage] = useState("");
-
+export default function MainNewKudo(props) {
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (formData) => {
       console.log(formData);
@@ -46,37 +44,22 @@ export default function MainNewKudo() {
     },
   });
 
-  const saveNewKudoHandler = () => {
+  const saveNewKudoHandler = (event) => {
+    event.preventDefault();
     const response = mutation.mutate({
-      to: to,
-      from: from,
-      message: message,
+      to: event.target.to.value,
+      from: event.target.from.value,
+      message: event.target.message.value,
     });
+    console.log("response");
     console.log(response);
-  };
-
-  const changeTo = (event) => {
-    setTo(event.target.value);
-  };
-
-  const changeFrom = (event) => {
-    setFrom(event.target.value);
-  };
-
-  const changeMessage = (event) => {
-    setMessage(event.target.value);
+    navigate("/");
   };
 
   return (
     <div className="bg-gradient-to-r from-primary to-indigo-900 h-screen flex flex-col items-center justify-center">
-      <Modal title="New Kudos 🦄" onSave={saveNewKudoHandler}>
-        <div>
-          <FormNewKudo
-            cTo={changeTo}
-            cFrom={changeFrom}
-            cMess={changeMessage}
-          />
-        </div>
+      <Modal title="New Kudos 🦄" form="form_nk">
+        <FormNewKudo onSaveKudo={saveNewKudoHandler} />
       </Modal>
     </div>
   );

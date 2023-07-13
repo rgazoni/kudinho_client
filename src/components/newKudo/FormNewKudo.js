@@ -23,25 +23,12 @@ export default function FormNewKudo(props) {
 
   const onChangeTxtLeft = (event) => {
     setTextLeft(200 - event.target.value.length);
-    props.cMess(event);
   };
 
   return (
-    <form id="form_nk" className="pt-3">
-      <InputText
-        placeholder="From"
-        id="from"
-        name="from"
-        form="form_nk"
-        onChange={props.cFrom}
-      />
-      <InputText
-        placeholder="To"
-        id="to"
-        name="to"
-        form="form_nk"
-        onChange={props.cTo}
-      />
+    <form className="pt-3" id="form_nk" onSubmit={props.onSaveKudo}>
+      <InputText placeholder="From" id="from" name="from" form="form_nk" />
+      <InputText placeholder="To" id="to" name="to" form="form_nk" />
       <div className="flex flex-col items-center justify-center mt-6">
         <textarea
           className="p-2 pl-4 rounded w-9/12 bg-gray-800 text-gray-300 focus:outline-none focus:outline-3
