@@ -31,17 +31,21 @@ export default function MainArchived() {
 
   return (
     <div className="h-full w-full bg-dark">
-      <div className="sticky top-0 flex items-center w-full h-16 px-4">
-        <label className="text-white font-medium text-3xl px-4">Kudobox</label>
-        <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
-        <FilledBtn
-          path="/"
-          content="Home"
-          classTxt="text-lg"
-          classBtn="h-10 w-24 rounded-lg"
-        />
+      <div className="h-fit w-full bg-dark pb-6">
+        <div className="sticky top-0 flex items-center w-full h-16 px-4">
+          <label className="text-white font-medium text-3xl px-4">
+            Kudobox
+          </label>
+          <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
+          <FilledBtn
+            path="/"
+            content="Home"
+            classTxt="text-lg"
+            classBtn="h-10 w-24 rounded-lg"
+          />
+        </div>
+        {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
       </div>
-      {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
     </div>
   );
 }
