@@ -9,6 +9,7 @@ import Dialog from "../common/Dialog";
 
 export default function MainNewKudo(props) {
   const [openDialog, setOpenDialog] = useState(false);
+  const [hasContentForm, setHasContentForm] = useState(() => {});
 
   const navigate = useNavigate();
   const mutation = useMutation({
@@ -63,24 +64,25 @@ export default function MainNewKudo(props) {
     setOpenDialog(false);
   };
 
-  const openDialogHandler = () => {
-    setOpenDialog(true);
+  const dialogHandler = () => {
+    const result = hasContentForm;
+    result ? setOpenDialog(true) : navigate("/");
   };
 
   return (
     <div className="bg-gradient-to-r from-primary to-indigo-900 h-screen flex flex-col items-center justify-center">
-      <Modal
-        title="New Kudos 🦄"
-        form="form_nk"
-        onClickExitBtn={openDialogHandler}
-      >
-        <FormNewKudo onSaveKudo={saveNewKudoHandler} />
+      <Modal title="New Kudos 🦄" form="form_nk" onClickExitBtn={dialogHandler}>
+        <FormNewKudo
+          onSaveKudo={saveNewKudoHandler}
+          hasContentForm={setHasContentForm}
+        />
       </Modal>
       <Dialog
         open={openDialog}
         close={closeDialogHandler}
         title="Close New Kudos"
         path="/"
+        ctaBtn="Save Draft"
         content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."
       />
     </div>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FilledBtn, HollowedBtn, UnderlinedBtn } from "../common/Button";
 import happyFace from "../../assets/icon/happy_face.svg";
+import Dialog from "../common/Dialog";
 
 export default function Main() {
   const [amount, setAmount] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const unreadedKudos = JSON.parse(
@@ -11,6 +13,14 @@ export default function Main() {
     ).filter((kudo) => !kudo.isKudoReaded);
     setAmount(unreadedKudos.length);
   }, []);
+
+  const closeDialogHandler = () => {
+    setOpenDialog(false);
+  };
+
+  const openDialogHandler = () => {
+    setOpenDialog(true);
+  };
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-dark h-screen flex flex-col items-center justify-center">
@@ -24,11 +34,20 @@ export default function Main() {
         content="New Kudo"
         icon={happyFace}
       />
-      <HollowedBtn path="/readkudos" content="Read New Kudos" />
+      <HollowedBtn onClick={openDialogHandler} content="Read New Kudos" />
       <UnderlinedBtn
         path="/archivedkudos"
         content="Archived Kudos"
         className="mt-8"
+      />
+      <Dialog
+        className="bg-indigo-700"
+        open={openDialog}
+        close={closeDialogHandler}
+        title="Start to read team Kudos!"
+        path="/readkudos"
+        ctaBtn="Read Kudos"
+        content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."
       />
     </div>
   );

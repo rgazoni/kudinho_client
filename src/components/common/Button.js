@@ -40,7 +40,10 @@ export function HollowedBtn(props) {
   return (
     <div className="mt-8">
       <Link to={props.path} style={{ textDecoration: "none" }}>
-        <button className="w-72 p-3 border-2 border-white rounded-2xl hover:border-primary hover:bg-primary">
+        <button
+          onClick={props.onClick}
+          className="w-72 p-3 border-2 border-white rounded-xl hover:border-primary hover:bg-primary"
+        >
           <span className="text-white font-medium text-xl">
             {props.content}
           </span>
