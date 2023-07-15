@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../common/Modal";
 import FormNewKudo from "./FormNewKudo";
 
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Dialog from "../common/Dialog";
 
 export default function MainNewKudo(props) {
+  const [openDialog, setOpenDialog] = useState(false);
+
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (formData) => {
@@ -56,11 +59,29 @@ export default function MainNewKudo(props) {
     navigate("/");
   };
 
+  const closeDialogHandler = () => {
+    setOpenDialog(false);
+  };
+
+  const openDialogHandler = () => {
+    setOpenDialog(true);
+  };
+
   return (
     <div className="bg-gradient-to-r from-primary to-indigo-900 h-screen flex flex-col items-center justify-center">
-      <Modal title="New Kudos 🦄" form="form_nk">
+      <Modal
+        title="New Kudos 🦄"
+        form="form_nk"
+        onClickExitBtn={openDialogHandler}
+      >
         <FormNewKudo onSaveKudo={saveNewKudoHandler} />
       </Modal>
+      <Dialog
+        open={openDialog}
+        close={closeDialogHandler}
+        title="Close new Kudo"
+        path="/"
+      />
     </div>
   );
 }

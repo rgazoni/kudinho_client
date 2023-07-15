@@ -52,9 +52,9 @@ export function HollowedBtn(props) {
 
 export function UnderlinedBtn(props) {
   return (
-    <div className="mt-8">
+    <div className={props.className}>
       <Link to={props.path} style={{ textDecoration: "none" }}>
-        <button>
+        <button onClick={props.onClick}>
           <span className="underline text-white text-lg">{props.content}</span>
         </button>
       </Link>

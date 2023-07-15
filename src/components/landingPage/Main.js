@@ -25,7 +25,11 @@ export default function Main() {
         icon={happyFace}
       />
       <HollowedBtn path="/readkudos" content="Read New Kudos" />
-      <UnderlinedBtn path="/archivedkudos" content="Archived Kudos" />
+      <UnderlinedBtn
+        path="/archivedkudos"
+        content="Archived Kudos"
+        className="mt-8"
+      />
     </div>
   );
 }
