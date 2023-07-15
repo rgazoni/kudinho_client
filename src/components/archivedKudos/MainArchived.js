@@ -32,7 +32,7 @@ export default function MainArchived() {
   return (
     <div className="h-full w-full bg-dark">
       <div className="h-fit w-full bg-dark pb-6">
-        <div className="sticky top-0 flex items-center w-full h-16 px-4">
+        <div className="sticky top-0 flex items-center w-full h-16 px-4 bg-dark/90">
           <label className="text-white font-medium text-3xl px-4">
             Kudobox
           </label>

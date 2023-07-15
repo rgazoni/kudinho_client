@@ -79,8 +79,9 @@ export default function MainNewKudo(props) {
       <Dialog
         open={openDialog}
         close={closeDialogHandler}
-        title="Close new Kudo"
+        title="Close New Kudos"
         path="/"
+        content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."
       />
     </div>
   );
