@@ -1,11 +1,8 @@
 import React from "react";
-import { Typography, Button, Alert } from "@material-tailwind/react";
+import { Typography, Button, Alert, Chip } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 export default function CarousselItem(props) {
-  const unreaden = props.unreadenKudos
-    ? `${props.unreadenKudos} unreaden Kudos!`
-    : "";
   return (
     <div className="relative h-full w-full bg-gradient-to-r from-primary to-indigo-900">
       <div className="absolute inset-0 grid h-full w-full place-items-center">
@@ -13,42 +10,52 @@ export default function CarousselItem(props) {
           <Typography
             variant="h1"
             color="white"
-            className="mb-3 text-3xl md:text-4xl lg:text-5xl"
+            className="mb-4 text-xl md:text-2xl lg:text-3xl font-bold opacity-80"
           >
-            🎉 Read new kudos 🎉
+            Read new kudos 🥳
           </Typography>
 
-          <Typography variant="h6" color="white" className="mb-8">
-            {unreaden}
-          </Typography>
+          {!(props.currentIndex + 1 <= props.isNew) ? (
+            <Chip color="indigo" value="✨ New" className="mb-9" />
+          ) : (
+            <div className="mb-9" />
+          )}
 
-          <Typography
-            variant="lead"
-            color="white"
-            className="mb-12 opacity-80 w-4/5"
-          >
-            {props.message}
-          </Typography>
+          <div className="bg-[#23347b] rounded-xl w-4/5 mb-11 shadow-sm shadow-gray-950">
+            <Typography
+              variant="lead"
+              color="white"
+              className="text-lg p-5 text-start w-full mb-3 text-white"
+            >
+              {props.message}
+            </Typography>
+          </div>
 
-          <div className="flex flex-col w-4/5">
-            <Alert color="blue" variant="ghost" className="mb-6">
-              <p className="text-white text-start h-fit">From: {props.from}</p>
+          <div className="flex w-4/5 gap-4">
+            <Alert color="blue" variant="ghost" className="">
+              <p className="text-white text-start text-sm h-fit">
+                From: {props.from}
+              </p>
             </Alert>
             <Alert color="blue" variant="ghost">
-              <p className="text-white text-start h-fit">To: {props.to}</p>
+              <p className="text-white text-start text-sm h-fit">
+                To: {props.to}
+              </p>
             </Alert>
           </div>
           <div className="flex justify-center mt-10">
             <Link to="/" style={{ textDecoration: "none" }}>
-              <Button size="lg" color="white" variant="text">
+              <Button
+                size="lg"
+                color="white"
+                variant="text"
+                onClick={() => {
+                  props.onHomeClick(props.currentIndex);
+                }}
+              >
                 Home
               </Button>
             </Link>
-          </div>
-          <div className="absolute bottom-10">
-            <p className="text-white font-light opacity-70">
-              {props.itemNumber}/{props.arrLen}
-            </p>
           </div>
         </div>
       </div>

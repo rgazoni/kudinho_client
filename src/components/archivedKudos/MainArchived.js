@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FilledBtn } from "../common/Button";
-import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import ArchivedCard from "./ArchivedCard";
 
-import axios from "axios";
-
-export default function MainArchived(props) {
+export default function MainArchived() {
   const [archivedKudos, setArchivedKudos] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios("http://localhost:3001/api/archivedkudos");
-        setArchivedKudos(response.data);
-      } catch (e) {
-        setArchivedKudos([]);
-      }
-    };
-    fetchData();
+    const allKudos = JSON.parse(sessionStorage.getItem("kudos"));
+    setArchivedKudos(allKudos.filter((item) => item.isKudoReaded));
   }, []);
 
   const noArchivedKudos = (
