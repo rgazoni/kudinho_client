@@ -137,11 +137,13 @@ export default function MainNewKudo(props) {
       <Dialog
         open={openDialog}
         hasExitBtn={true}
-        close={closeDialogHandler}
+        close={() => {
+          closeDialogHandler();
+          flushCurrentData();
+        }}
         title="Close New Kudos"
         secondaryBtn_path="/"
         secondaryBtn_content="Close"
-        secondaryBtn_onClick={flushCurrentData}
         primaryBtn_path="/"
         primaryBtn_content="Save Draft"
         primaryBtn_onClick={storeData}

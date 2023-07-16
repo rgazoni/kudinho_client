@@ -9,6 +9,8 @@ export default function Dialog(props) {
 
   const classNames = `bg-bg_card_top w-2/5 h-fit rounded-lg shadow-sm shadow-gray-950 ${props.className}`;
 
+  console.log(props.secondaryBtn_path);
+
   return (
     <div className={classes}>
       <div className={classNames}>
@@ -37,10 +39,7 @@ export default function Dialog(props) {
         <div className="flex justify-end items-center mt-7 mb-9 gap-6 mr-8">
           <UnderlinedBtn
             content={props.secondaryBtn_content || "Cancel"}
-            onClick={() => {
-              props.close();
-              props.secondaryBtn_onClick();
-            }}
+            onClick={props.close}
             path={props.secondaryBtn_path}
           />
           <FilledBtn
