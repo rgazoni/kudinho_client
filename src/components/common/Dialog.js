@@ -1,5 +1,6 @@
 import React from "react";
 import { FilledBtn, UnderlinedBtn } from "./Button";
+import closeModal from "../../assets/icon/close_modal.svg";
 
 export default function Dialog(props) {
   const classes = `${
@@ -12,9 +13,20 @@ export default function Dialog(props) {
     <div className={classes}>
       <div className={classNames}>
         {/* Dialog Header */}
-        <h1 className="text-3xl font-medium my-5 pl-8 text-white w-fit">
-          {props.title || "Empty Title"}
-        </h1>
+        <div className="flex flex-row">
+          <h1 className="text-3xl font-medium my-5 pl-8 text-white w-fit">
+            {props.title || "Empty Title"}
+          </h1>
+          {props.hasExitBtn && (
+            <button
+              onClick={props.close}
+              className="relative top-5.5 right-8 text-gray-400 bg-transparent hover:bg-gray-800
+            hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
+            >
+              <img src={closeModal} className="h-4" alt="Close modal" />
+            </button>
+          )}
+        </div>
         {/* Dialog Body */}
         <div className="mx-5 mt-2 p-5">
           <p className="text-white text-lg">
@@ -24,16 +36,17 @@ export default function Dialog(props) {
         {/* Dialog Footer */}
         <div className="flex justify-end items-center mt-7 mb-9 gap-6 mr-8">
           <UnderlinedBtn
-            content="Cancel"
+            content={props.secondary_ctaBtn || "Cancel"}
             className="flex justify-center"
             onClick={props.close}
+            path={props.secondary_path}
           />
           <FilledBtn
             form={props.form}
             classBtn="h-11 w-fit rounded-lg"
             classTxt="text-lg"
-            content={props.ctaBtn || "ctaBtn Argument"}
-            path={props.path}
+            content={props.ctaBtn || "Next"}
+            path={props.ctaBtn_path}
           />
         </div>
       </div>

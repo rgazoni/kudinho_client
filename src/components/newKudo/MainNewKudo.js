@@ -79,9 +79,12 @@ export default function MainNewKudo(props) {
       </Modal>
       <Dialog
         open={openDialog}
+        hasExitBtn={true}
         close={closeDialogHandler}
         title="Close New Kudos"
-        path="/"
+        secondary_path="/"
+        secondary_ctaBtn="Close without saving"
+        ctaBtn_path="/"
         ctaBtn="Save Draft"
         content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."
       />
