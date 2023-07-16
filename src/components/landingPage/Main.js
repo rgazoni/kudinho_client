@@ -13,7 +13,7 @@ export default function Main() {
     unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
     console.log(unreadedKudos.length);
     setAmount(unreadedKudos.length);
-  }, [amount]);
+  }, []);
 
   const closeDialogHandler = () => {
     setOpenDialog(false);

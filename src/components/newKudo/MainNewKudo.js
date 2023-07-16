@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Dialog from "../common/Dialog";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MainNewKudo(props) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -14,7 +15,6 @@ export default function MainNewKudo(props) {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: async (formData) => {
-      console.log(formData);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -41,7 +41,10 @@ export default function MainNewKudo(props) {
       const allKudos = JSON.parse(sessionStorage.getItem("kudos"));
       sessionStorage.setItem(
         "kudos",
-        JSON.stringify([...allKudos, { ...variables, isKudoReaden: false }])
+        JSON.stringify([
+          ...allKudos,
+          { _id: uuidv4(), ...variables, isKudoReaded: false, _v: 0 },
+        ])
       );
       toast("🦄 Your Kudo was sent!", {
         position: "top-right",
@@ -56,15 +59,16 @@ export default function MainNewKudo(props) {
     },
   });
 
-  const saveNewKudoHandler = (event) => {
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const saveNewKudoHandler = async (event) => {
     event.preventDefault();
-    const response = mutation.mutate({
+    mutation.mutate({
       to: event.target.to.value,
       from: event.target.from.value,
       message: event.target.message.value,
     });
-    console.log("response");
-    console.log(response);
+    await sleep(500);
     navigate("/");
   };
 

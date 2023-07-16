@@ -14,13 +14,13 @@ export default function Dialog(props) {
       <div className={classNames}>
         {/* Dialog Header */}
         <div className="flex flex-row">
-          <h1 className="text-3xl font-medium my-5 pl-8 text-white w-fit">
+          <h1 className="text-3xl font-medium my-7 pl-8 text-white w-fit">
             {props.title || "Empty Title"}
           </h1>
           {props.hasExitBtn && (
             <button
               onClick={props.close}
-              className="relative top-5.5 right-8 text-gray-400 bg-transparent hover:bg-gray-800
+              className="relative top-8 right-8 text-gray-400 bg-transparent hover:bg-gray-800
             hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
             >
               <img src={closeModal} className="h-4" alt="Close modal" />
@@ -28,7 +28,7 @@ export default function Dialog(props) {
           )}
         </div>
         {/* Dialog Body */}
-        <div className="mx-5 mt-2 p-5">
+        <div className="mx-5 p-5">
           <p className="text-white text-lg">
             {props.content || "Insert some text here with content argument"}
           </p>

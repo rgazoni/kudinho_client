@@ -20,7 +20,7 @@ export default function MainArchived() {
   );
 
   const archivedKudoCards = (
-    <div className="h-fit w-full bg-dark pb-6 m-8 flex flex-row flex-grow flex-wrap gap-7">
+    <div className="h-fit bg-dark pb-6 m-8 flex flex-row flex-grow flex-wrap gap-7">
       {archivedKudos.map((item) => {
         return (
           <ArchivedCard message={item.message} to={item.to} from={item.from} />
@@ -43,7 +43,7 @@ export default function MainArchived() {
   );
 
   return (
-    <div className="h-full w-full bg-dark">
+    <div className="h-vh w-full bg-dark">
       {header}
       {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
     </div>
