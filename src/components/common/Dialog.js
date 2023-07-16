@@ -20,7 +20,7 @@ export default function Dialog(props) {
           {props.hasExitBtn && (
             <button
               onClick={props.close}
-              className="relative top-8 right-8 text-gray-400 bg-transparent hover:bg-gray-800
+              className="relative top-c19 right-8 text-gray-400 bg-transparent hover:bg-gray-800
             hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
             >
               <img src={closeModal} className="h-4" alt="Close modal" />
@@ -36,16 +36,20 @@ export default function Dialog(props) {
         {/* Dialog Footer */}
         <div className="flex justify-end items-center mt-7 mb-9 gap-6 mr-8">
           <UnderlinedBtn
-            content={props.secondary_ctaBtn || "Cancel"}
-            onClick={props.close}
-            path={props.secondary_path}
+            content={props.secondaryBtn_content || "Cancel"}
+            onClick={() => {
+              props.close();
+              props.secondaryBtn_onClick();
+            }}
+            path={props.secondaryBtn_path}
           />
           <FilledBtn
             form={props.form}
             classBtn="h-11 w-fit rounded-lg"
             classTxt="text-lg"
-            content={props.ctaBtn || "Next"}
-            path={props.ctaBtn_path}
+            content={props.primaryBtn_content || "Next"}
+            path={props.primaryBtn_path}
+            onClick={props.primaryBtn_onClick}
           />
         </div>
       </div>

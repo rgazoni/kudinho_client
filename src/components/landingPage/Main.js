@@ -54,8 +54,8 @@ export default function Main() {
         open={openDialog}
         close={closeDialogHandler}
         title="Start to read team Kudos!"
-        ctaBtn_path="/readkudos"
-        ctaBtn="Read Kudos"
+        primaryBtn_path="/readkudos"
+        primaryBtn_content="Read Kudos"
         content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."
       />
     </div>

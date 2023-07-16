@@ -21,6 +21,7 @@ module.exports = withMT({
       },
       inset: {
         5.5: "1.375rem",
+        c19: "1.9rem",
       },
       boxShadow: {
         hover_card: "0px 4px 12px rgba(0, 0, 0, 0.08)",

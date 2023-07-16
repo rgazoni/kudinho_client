@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export function InputText(props) {
   return (
@@ -13,6 +13,7 @@ export function InputText(props) {
         form={props.form || ""}
         required={props.required || true}
         onChange={props.onChange}
+        defaultValue={props.defaultValue}
       />
     </div>
   );
@@ -20,25 +21,41 @@ export function InputText(props) {
 
 export default function FormNewKudo(props) {
   const [textLeft, setTextLeft] = useState(200);
+  const [draft, setDraft] = useState({});
 
   const onChangeTxtLeft = (event) => {
     setTextLeft(200 - event.target.value.length);
   };
 
-  const hasContent = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const draft = JSON.parse(localStorage.getItem("nk_draft"));
+      setDraft(draft);
+      console.log("draft on form");
+      console.log(draft);
+    };
+    fetchData();
+  }, []);
+
+  const checkContent = () => {
     if (
       document.getElementById("to").value.length !== 0 ||
       document.getElementById("from").value.length !== 0 ||
       document.getElementById("message").value.length !== 0
     ) {
-      return true;
+      return {
+        to: document.getElementById("to").value,
+        from: document.getElementById("from").value,
+        message: document.getElementById("message").value,
+        hasContent: true,
+      };
     } else {
-      return false;
+      return { hasContent: false };
     }
   };
 
   const onUpdate = () => {
-    props.hasContentForm(hasContent);
+    props.hasContentForm(checkContent);
   };
 
   return (
@@ -48,6 +65,7 @@ export default function FormNewKudo(props) {
         id="from"
         name="from"
         form="form_nk"
+        defaultValue={draft.from !== "" ? draft.from : ""}
         onChange={onUpdate}
       />
       <InputText
@@ -55,6 +73,7 @@ export default function FormNewKudo(props) {
         id="to"
         name="to"
         form="form_nk"
+        defaultValue={draft.to !== "" ? draft.to : ""}
         onChange={onUpdate}
       />
       <div className="flex flex-col items-center justify-center mt-6">
@@ -75,6 +94,7 @@ export default function FormNewKudo(props) {
             onChangeTxtLeft(event);
             onUpdate();
           }}
+          defaultValue={draft.message !== "" ? draft.message : ""}
         ></textarea>
         <p className="w-9/12 text-end pr-2 pt-1 opacity-60 text-gray-100 font-light text-xs italic">
           {textLeft}/200
