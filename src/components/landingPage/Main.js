@@ -8,11 +8,9 @@ export default function Main() {
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
-    console.log(JSON.parse(sessionStorage.getItem("kudos")));
     const unreadedKudos = JSON.parse(sessionStorage.getItem("kudos"));
-    unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
-    console.log(unreadedKudos.length);
-    setAmount(unreadedKudos.length);
+    const result = unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
+    setAmount(result.length);
   }, []);
 
   const closeDialogHandler = () => {

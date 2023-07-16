@@ -11,7 +11,7 @@ export default function MainArchived() {
   }, []);
 
   const noArchivedKudos = (
-    <div className="h-5/6 flex justify-center">
+    <div className="h-[92vh] flex justify-center overflow-y-hidden overscroll-y-none">
       <div className="flex flex-col items-center justify-center">
         <span className="text-7xl mb-4">🤯</span>
         <h1 className="text-white text-base text-center opacity-40">
@@ -38,7 +38,7 @@ export default function MainArchived() {
   );
 
   const header = (
-    <div className="sticky top-0 flex items-center w-full h-16 px-4 bg-dark/90">
+    <div className="sticky top-0 z-40 flex items-center w-full h-16 px-4 bg-dark/90">
       <label className="text-white font-medium text-3xl px-4">Kudobox</label>
       <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
       <FilledBtn
@@ -51,7 +51,7 @@ export default function MainArchived() {
   );
 
   return (
-    <div className="h-full w-full bg-dark">
+    <div className="h-fit w-full bg-dark">
       {header}
       {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
     </div>

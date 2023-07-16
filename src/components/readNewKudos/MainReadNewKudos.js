@@ -3,6 +3,9 @@ import { Carousel, Button, IconButton } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import CarousselItem from "./CarousselItem";
 
+import axios from "axios";
+import { toast } from "react-toastify";
+
 import { ChevronRight } from "feather-icons-react";
 import { ChevronLeft } from "feather-icons-react/build/IconComponents";
 
@@ -37,8 +40,31 @@ export default function MainReadNewKudos() {
       "kudos",
       JSON.stringify(readedKudos.concat(unreadedKudos))
     );
-    console.log("all kudos");
-    console.log(JSON.parse(sessionStorage.getItem("kudos")));
+
+    try {
+      await axios("http://localhost:3001/api/updatereadedkudos");
+      toast.info("🦄 You can check your readed Kudos on Archived Kudos!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (e) {
+      toast.info("You can check your readed Kudos on Archived Kudos!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   const noNewKudos = (

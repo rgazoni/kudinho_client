@@ -9,8 +9,6 @@ export default function Dialog(props) {
 
   const classNames = `bg-bg_card_top w-2/5 h-fit rounded-lg shadow-sm shadow-gray-950 ${props.className}`;
 
-  console.log(props.secondaryBtn_path);
-
   return (
     <div className={classes}>
       <div className={classNames}>
