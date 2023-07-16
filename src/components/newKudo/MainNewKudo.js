@@ -23,18 +23,26 @@ export default function MainNewKudo(props) {
       return await fetch("http://localhost:3001/api/newkudo", requestOptions);
     },
     onError: (error, variables, context) => {
-      toast.error("Something went wrong!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error(
+        "Server connection is down 😣 Your Kudo was save as a draft, please try again later.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
     },
     onSuccess: (data, variables, context) => {
+      const allKudos = JSON.parse(sessionStorage.getItem("kudos"));
+      sessionStorage.setItem(
+        "kudos",
+        JSON.stringify([...allKudos, { ...variables, isKudoReaden: false }])
+      );
       toast("🦄 Your Kudo was sent!", {
         position: "top-right",
         autoClose: 5000,
@@ -83,7 +91,7 @@ export default function MainNewKudo(props) {
         close={closeDialogHandler}
         title="Close New Kudos"
         secondary_path="/"
-        secondary_ctaBtn="Close without saving"
+        secondary_ctaBtn="Close"
         ctaBtn_path="/"
         ctaBtn="Save Draft"
         content="Are you sure that you want to close New Kudos? When you close it, your content is saved as a draft."

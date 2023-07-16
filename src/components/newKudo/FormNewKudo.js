@@ -59,8 +59,9 @@ export default function FormNewKudo(props) {
       />
       <div className="flex flex-col items-center justify-center mt-6">
         <textarea
-          className="p-2 pl-4 rounded w-9/12 bg-gray-800 text-gray-300 focus:outline-none focus:outline-3
-                    focus:outline-primary focus:outline-offset-1 resize-none placeholder:text-white"
+          className="p-2 pl-4 rounded w-9/12 bg-gray-800 text-gray-300 focus:outline-none
+          focus:outline-3 focus:outline-primary focus:outline-offset-1 resize-none
+          placeholder:text-white"
           maxLength={200}
           type="text"
           placeholder="Message"

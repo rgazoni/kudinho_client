@@ -1,5 +1,5 @@
 import React from "react";
-import { FilledBtn, UnderlinedBtn } from "./Button";
+import { FilledBtn, HollowedBtn, UnderlinedBtn } from "./Button";
 import closeModal from "../../assets/icon/close_modal.svg";
 
 export default function Dialog(props) {
@@ -37,7 +37,6 @@ export default function Dialog(props) {
         <div className="flex justify-end items-center mt-7 mb-9 gap-6 mr-8">
           <UnderlinedBtn
             content={props.secondary_ctaBtn || "Cancel"}
-            className="flex justify-center"
             onClick={props.close}
             path={props.secondary_path}
           />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import closeModal from "../../assets/icon/close_modal.svg";
 import { FilledBtn } from "./Button";
 

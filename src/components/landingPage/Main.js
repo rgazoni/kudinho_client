@@ -8,11 +8,12 @@ export default function Main() {
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
-    const unreadedKudos = JSON.parse(
-      sessionStorage.getItem("kudos") || []
-    ).filter((kudo) => !kudo.isKudoReaded);
+    console.log(JSON.parse(sessionStorage.getItem("kudos")));
+    const unreadedKudos = JSON.parse(sessionStorage.getItem("kudos"));
+    unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
+    console.log(unreadedKudos.length);
     setAmount(unreadedKudos.length);
-  }, []);
+  }, [amount]);
 
   const closeDialogHandler = () => {
     setOpenDialog(false);
@@ -24,9 +25,17 @@ export default function Main() {
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-dark h-screen flex flex-col items-center justify-center">
-      <h1 className="w-144 text-center text-8xl font-medium text-white mb-6">
-        We have <span className="text-primary underline">{amount}</span> new
-        Kudos!
+      <h1 className="flex items-center justify-center">
+        {amount !== 0 ? (
+          <p className="w-144 text-center text-8xl font-medium text-white mb-6">
+            We have <span className="text-primary underline">{amount}</span> new
+            Kudos!
+          </p>
+        ) : (
+          <p className="w-3/5 text-center text-8xl font-medium text-white mb-6">
+            We don't have new Kudos <span className="text-7xl">😢</span>
+          </p>
+        )}
       </h1>
       <FilledBtn
         path="/newkudo"

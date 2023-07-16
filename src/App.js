@@ -23,9 +23,10 @@ function App() {
           );
           sessionStorage.setItem("kudos", JSON.stringify(response.data));
           sessionStorage.setItem("isFirstTimeLoaded", JSON.stringify(true));
-          console.log(1);
         }
-      } catch (e) {}
+      } catch (e) {
+        sessionStorage.setItem("kudos", JSON.stringify([]));
+      }
     };
     fetchData();
   }, []);

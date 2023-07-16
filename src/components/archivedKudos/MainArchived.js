@@ -20,7 +20,7 @@ export default function MainArchived() {
   );
 
   const archivedKudoCards = (
-    <div className="m-8 flex flex-row flex-grow flex-wrap gap-7">
+    <div className="h-fit w-full bg-dark pb-6 m-8 flex flex-row flex-grow flex-wrap gap-7">
       {archivedKudos.map((item) => {
         return (
           <ArchivedCard message={item.message} to={item.to} from={item.from} />
@@ -29,23 +29,23 @@ export default function MainArchived() {
     </div>
   );
 
+  const header = (
+    <div className="sticky top-0 flex items-center w-full h-16 px-4 bg-dark/90">
+      <label className="text-white font-medium text-3xl px-4">Kudobox</label>
+      <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
+      <FilledBtn
+        path="/"
+        content="Home"
+        classTxt="text-lg"
+        classBtn="h-10 w-24 rounded-lg"
+      />
+    </div>
+  );
+
   return (
     <div className="h-full w-full bg-dark">
-      <div className="h-fit w-full bg-dark pb-6">
-        <div className="sticky top-0 flex items-center w-full h-16 px-4 bg-dark/90">
-          <label className="text-white font-medium text-3xl px-4">
-            Kudobox
-          </label>
-          <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
-          <FilledBtn
-            path="/"
-            content="Home"
-            classTxt="text-lg"
-            classBtn="h-10 w-24 rounded-lg"
-          />
-        </div>
-        {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
-      </div>
+      {header}
+      {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
     </div>
   );
 }
