@@ -37,19 +37,13 @@ export function FilledBtn(props) {
 }
 
 export function HollowedBtn(props) {
+  const classesBtn = `border-2 border-white rounded-xl hover:border-primary hover:bg-primary ${props.className}`;
   return (
-    <div className="mt-8">
-      <Link to={props.path} style={{ textDecoration: "none" }}>
-        <button
-          onClick={props.onClick}
-          className="w-72 p-3 border-2 border-white rounded-xl hover:border-primary hover:bg-primary"
-        >
-          <span className="text-white font-medium text-xl">
-            {props.content}
-          </span>
-        </button>
-      </Link>
-    </div>
+    <Link to={props.path} style={{ textDecoration: "none" }}>
+      <button onClick={props.onClick} className={classesBtn}>
+        <span className="text-white font-medium text-xl">{props.content}</span>
+      </button>
+    </Link>
   );
 }
 

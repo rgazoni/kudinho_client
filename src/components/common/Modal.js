@@ -30,7 +30,7 @@ export default function Modal(props) {
             form={props.form}
             classBtn="h-11 w-28 rounded-lg"
             classTxt="text-xl"
-            content="Save"
+            content={props.primaryBtn_content || "Empty Button"}
           />
         </div>
       </div>

@@ -27,6 +27,9 @@ export default function Main() {
 
   return (
     <div className="bg-gradient-to-r from-gray-900 to-dark h-screen flex flex-col items-center justify-center">
+      <h4 className="text-white opacity-50 mb-6">
+        Welcome to the Bud team platform
+      </h4>
       <h1 className="flex items-center justify-center">
         {amount !== 0 ? (
           <p className="w-144 text-center text-8xl font-medium text-white mb-6">
@@ -45,7 +48,13 @@ export default function Main() {
         content="New Kudo"
         icon={happyFace}
       />
-      <HollowedBtn onClick={openDialogHandler} content="Read New Kudos" />
+      <div className="mt-8">
+        <HollowedBtn
+          onClick={openDialogHandler}
+          content="Read New Kudos"
+          className="w-72 p-3"
+        />
+      </div>
       <UnderlinedBtn
         path="/archivedkudos"
         content="Archived Kudos"

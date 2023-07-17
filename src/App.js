@@ -2,6 +2,8 @@ import MainArchived from "./components/archivedKudos/MainArchived";
 import Main from "./components/landingPage/Main";
 import MainReadNewKudos from "./components/readNewKudos/MainReadNewKudos";
 import MainNewKudo from "./components/newKudo/MainNewKudo";
+import LoginPage from "./components/login/LoginPage";
+import SignupPage from "./components/login/SignupPage";
 
 import axios from "axios";
 
@@ -48,6 +50,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/newkudo" element={<MainNewKudo />} />
           <Route path="/readkudos" element={<MainReadNewKudos />} />
           <Route path="/archivedkudos" element={<MainArchived />} />

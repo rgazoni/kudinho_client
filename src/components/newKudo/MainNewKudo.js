@@ -128,7 +128,12 @@ export default function MainNewKudo(props) {
 
   return (
     <div className="bg-gradient-to-r from-primary to-indigo-900 h-screen flex flex-col items-center justify-center">
-      <Modal title="New Kudos 🦄" form="form_nk" onClickExitBtn={dialogHandler}>
+      <Modal
+        title="New Kudos 🦄"
+        form="form_nk"
+        onClickExitBtn={dialogHandler}
+        primaryBtn_content="Save"
+      >
         <FormNewKudo
           onSaveKudo={saveNewKudoHandler}
           hasContentForm={setHasContentForm}
