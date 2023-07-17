@@ -51,7 +51,7 @@ export default function MainArchived() {
   );
 
   return (
-    <div className="h-fit w-full bg-dark">
+    <div className="h-fit min-h-full w-full bg-dark">
       {header}
       {archivedKudos.length === 0 ? noArchivedKudos : archivedKudoCards}
     </div>

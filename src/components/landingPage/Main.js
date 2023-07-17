@@ -9,8 +9,12 @@ export default function Main() {
 
   useEffect(() => {
     const unreadedKudos = JSON.parse(sessionStorage.getItem("kudos"));
-    const result = unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
-    setAmount(result.length);
+    if (unreadedKudos !== null) {
+      const result = unreadedKudos.filter((kudo) => !kudo.isKudoReaded);
+      setAmount(result.length);
+    } else {
+      setAmount(0);
+    }
   }, []);
 
   const closeDialogHandler = () => {
