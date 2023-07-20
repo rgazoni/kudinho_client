@@ -1,37 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../common/Modal";
 import { InputText } from "../common/InputText";
-import { Copy } from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
-
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import CodeSignupPage from "./CodeSignupPage";
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [generatedCode, setGeneratedCode] = useState("");
 
   const backToLogin = () => {
     navigate("/login");
   };
+
+  const mutation = useMutation({
+    mutationFn: async (data) => {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      return await fetch(
+        "http://localhost:3001/api/auth/signup-team",
+        requestOptions
+      );
+    },
+    onError: (error, variables, context) => {
+      toast.error("Server connection is down 😣. Try again later!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    },
+    onSuccess: async (data, variables, context) => {
+      const response = await data.json();
+      toast(`🦄 An email was sent to ${variables.email}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setGeneratedCode(response.team_code);
+      setIsDialogOpen(true);
+    },
+  });
+
   const formSignupSumbit = (event) => {
+    event.preventDefault();
     const formData = {
       email: event.target.email.value,
       teamName: event.target.teamName.value,
       companyName: event.target.companyName.value,
       teamSize: event.target.teamSize.value,
     };
-    console.log(formData);
-    toast(`🦄 An email was sent to ${formData.email}!`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-
-    navigate("/login");
+    mutation.mutate(formData);
   };
 
   return (
@@ -42,32 +77,8 @@ export default function SignupPage() {
         onClickExitBtn={backToLogin}
         form="form_signup"
       >
-        <div className="flex flex-col mt-6 text-white justify-center items-center">
-          <h4 className="text-center text-lg mb-1">Generated code</h4>
-          <div className="relative flex justify-center items-center gap-2 mt-2">
-            <p className="text-center opacity-70 absolute" id="code-gen">
-              H3W12D
-            </p>
-            <div
-              className="absolute left-9 p-1 rounded hover:bg-black/30 group"
-              onClick={() => {
-                const code = document.getElementById("code-gen");
-                navigator.clipboard.writeText(code.innerHTML);
-              }}
-            >
-              <Copy className="h-3.5 w-3.5 group-hover:w-4 group-hover:h-4" />
-            </div>
-          </div>
-          <div className="w-3/4 mt-5">
-            <p className="text-sm opacity-40 text-center">
-              This generated code will give you and your team access to the
-              platform. So please write it down and don't lose it! Also Kudinho
-              will send you an email with the code.
-            </p>
-          </div>
-        </div>
         <form
-          className="mt-6 mb-9"
+          className="mt-12 mb-9"
           id="form_signup"
           onSubmit={formSignupSumbit}
         >
@@ -102,6 +113,14 @@ export default function SignupPage() {
           </div>
         </form>
       </Modal>
+
+      <CodeSignupPage
+        className="bg-indigo-700"
+        open={isDialogOpen}
+        title="Generated code"
+        primaryBtn_path="/login"
+        generatedCode={generatedCode}
+      />
     </div>
   );
 }
