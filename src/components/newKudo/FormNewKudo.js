@@ -30,7 +30,7 @@ export default function FormNewKudo(props) {
   useEffect(() => {
     const fetchData = async () => {
       const draft = JSON.parse(localStorage.getItem("nk_draft"));
-      setDraft(draft);
+      setDraft(draft || { to: "", from: "", message: "" });
       console.log("draft on form");
       console.log(draft);
     };

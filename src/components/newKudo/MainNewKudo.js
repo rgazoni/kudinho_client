@@ -39,7 +39,7 @@ export default function MainNewKudo(props) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        }
+        },
       );
     },
     onSuccess: (data, variables, context) => {
@@ -49,7 +49,7 @@ export default function MainNewKudo(props) {
         JSON.stringify([
           ...allKudos,
           { _id: uuidv4(), ...variables, isKudoReaded: false, _v: 0 },
-        ])
+        ]),
       );
       toast("🦄 Your Kudo was sent!", {
         position: "top-right",
@@ -122,7 +122,7 @@ export default function MainNewKudo(props) {
     });
     localStorage.setItem(
       "nk_draft",
-      JSON.stringify({ to: "", from: "", message: "" })
+      JSON.stringify({ to: "", from: "", message: "" }),
     );
   };
 
