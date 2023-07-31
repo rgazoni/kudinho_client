@@ -1,13 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FilledBtn } from "../common/Button";
+import AuthContext from "../login/AuthContext";
 import ArchivedCard from "./ArchivedCard";
+import Logo from "../../assets/icon/happy_face.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function MainArchived() {
   const [archivedKudos, setArchivedKudos] = useState([]);
+  let currentMonth = 0;
+  const { isLogged } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const allKudos = JSON.parse(sessionStorage.getItem("kudos"));
-    setArchivedKudos(allKudos.filter((item) => item.isKudoReaded));
+    const fetchData = async () => {
+      try {
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        };
+        const response = await fetch(
+          "http://localhost:3001/api/archivedkudos",
+          requestOptions,
+        );
+        const data = await response.json();
+        setArchivedKudos(data.reverse() || []);
+      } catch (e) {
+        setArchivedKudos([]);
+      }
+    };
+    fetchData();
+    isLogged();
   }, []);
 
   const noArchivedKudos = (
@@ -23,14 +48,41 @@ export default function MainArchived() {
 
   const archivedKudoCards = (
     <div className="h-fit bg-dark">
-      <div className="pb-6 m-8 flex flex-row flex-grow flex-wrap gap-7">
+      <div className="pb-6 m-8 flex flex-grow flex-wrap gap-7">
         {archivedKudos.map((item) => {
+          //Fetch date
+          const date = new Date(item.timestamp);
+          const month =
+            date.getMonth() + 1 < 10
+              ? "0" + (date.getMonth() + 1)
+              : date.getMonth() + 1;
+          const fullDate =
+            date.getDate() + "/" + month + "/" + date.getFullYear();
+
+          let divider;
+          if (currentMonth !== date.getMonth() + 1) {
+            currentMonth = date.getMonth() + 1;
+            divider = (
+              <div className="flex items-center w-full">
+                <div className="h-0.5 rounded bg-secondary w-10"></div>
+                <p className="text-primary italic font-semibold ml-6 bg-white/90 p-1 px-6 rounded">
+                  {date.toLocaleString("default", { month: "long" })}
+                </p>
+                <div className="h-0.5 rounded bg-secondary w-full ml-6"></div>
+              </div>
+            );
+          }
           return (
-            <ArchivedCard
-              message={item.message}
-              to={item.to}
-              from={item.from}
-            />
+            <>
+              {divider}
+              <ArchivedCard
+                key={item._id}
+                message={item.message}
+                date={fullDate}
+                to={item.to}
+                from={item.from}
+              />
+            </>
           );
         })}
       </div>
@@ -39,8 +91,16 @@ export default function MainArchived() {
 
   const header = (
     <div className="sticky top-0 z-40 flex items-center w-full h-16 px-4 bg-dark/90">
-      <label className="text-white font-medium text-3xl px-4">Kudobox</label>
-      <div className="ml-2 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
+      <button
+        className="flex justify-center items-center gap-2"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <img src={Logo} className="h-8 ml-3" alt="Logo" />
+        <label className="text-white font-medium text-3xl">Kudinho</label>
+      </button>
+      <div className="ml-4 mr-4 w-0.5 h-10 rounded-full bg-gray-500"></div>
       <FilledBtn
         path="/"
         content="Home"

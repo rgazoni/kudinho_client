@@ -44,18 +44,16 @@ export default function CarousselItem(props) {
             </Alert>
           </div>
           <div className="flex justify-center mt-10">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <Button
-                size="lg"
-                color="white"
-                variant="text"
-                onClick={() => {
-                  props.onHomeClick(props.currentIndex);
-                }}
-              >
-                Home
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              color="white"
+              variant="text"
+              onClick={() => {
+                props.onHomeClick(props.currentIndex);
+              }}
+            >
+              Home
+            </Button>
           </div>
         </div>
       </div>

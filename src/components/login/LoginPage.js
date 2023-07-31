@@ -1,38 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Logo from "../../assets/icon/happy_face.svg";
 import { FilledBtn, UnderlinedBtn } from "../common/Button";
-
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import AuthContext from "./AuthContext";
 
 export default function LoginPage() {
-  const signupVerification = () => {
+  const { login, isLogged } = useContext(AuthContext);
+
+  const signupVerification = async () => {
     const team_code = document.getElementById("team-code").value;
-    console.log(team_code);
     mutation.mutate({
       team_code: team_code,
     });
   };
 
   const navigate = useNavigate();
+
   const mutation = useMutation({
-    mutationFn: async (data) => {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(data),
-      };
-      return await fetch(
-        "http://localhost:3001/api/auth/signin",
-        requestOptions,
-      );
+    mutationFn: async (payload) => {
+      const res = await login(payload);
+      return res.json();
     },
     onError: (error, variables, context) => {
-      toast.error("Server connection is down 😣. Try again later!", {
+      toast.error("Server connection is down, try again later!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,20 +36,23 @@ export default function LoginPage() {
       });
     },
     onSuccess: async (data, variables, context) => {
-      const response = await data.json();
-      if (response.status) {
+      console.log(data, variables);
+      if (data.status) {
         navigate("/");
       } else {
-        toast.error("Team code provided is wrong or doesn't exists!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error(
+          `Team code provided ${data.team_code} is wrong or doesn't exists!`,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          },
+        );
       }
     },
   });

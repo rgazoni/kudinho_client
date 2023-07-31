@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { FilledBtn } from "../common/Button";
 import { Copy } from "feather-icons-react";
 import closeModal from "../../assets/icon/close_modal.svg";
+import { toast } from "react-toastify";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function CodeSignupPage(props) {
+  const [copy, setCopy] = useState({
+    value: "",
+    copied: false,
+  });
   const classes = `${
     !props.open && "hidden"
   } fixed z-10 left-0 top-0 w-full h-full bg-black/50 flex justify-center items-center`;
 
   const classNames = `bg-bg_card_top w-2/5 h-fit rounded-lg shadow-sm shadow-gray-950 ${props.className}`;
+
+  const copyCodeHandler = () => {
+    const code = document.getElementById("code-gen");
+    setCopy({ copied: true, value: code.innerHTML });
+    toast.info("🦄 Your code was copied to clipboard!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   return (
     <div className={classes}>
@@ -38,15 +59,13 @@ export default function CodeSignupPage(props) {
               >
                 {props.generatedCode.toUpperCase()}
               </p>
-              <div
+              <CopyToClipboard
+                text={copy.value}
                 className="absolute left-10 p-1 rounded hover:bg-black/30 group"
-                onClick={() => {
-                  const code = document.getElementById("code-gen");
-                  navigator.clipboard.writeText(code.innerHTML);
-                }}
+                onCopy={copyCodeHandler}
               >
                 <Copy className="h-3.5 w-3.5 group-hover:w-4 group-hover:h-4" />
-              </div>
+              </CopyToClipboard>
             </div>
             <div className="w-4/5 mt-9">
               <p className="text-center">

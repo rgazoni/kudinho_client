@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Carousel, Button, IconButton } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CarousselItem from "./CarousselItem";
 
-import axios from "axios";
 import { toast } from "react-toastify";
 
 import { ChevronRight } from "feather-icons-react";
 import { ChevronLeft } from "feather-icons-react/build/IconComponents";
+import AuthContext from "../login/AuthContext";
 
 export default function MainReadNewKudos() {
   const [unreadedKudos, setUnreadedKudos] = useState([]);
   const [readedKudos, setReadedKudos] = useState([]);
   const [currentKudo, setCurrentKudo] = useState(0);
+  const navigate = useNavigate();
+  const { isLogged } = useContext(AuthContext);
+  const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
   useEffect(() => {
     const unreaded = [];
@@ -27,22 +30,25 @@ export default function MainReadNewKudos() {
     });
     setUnreadedKudos(unreaded);
     setReadedKudos(readed);
+    isLogged();
   }, []);
 
   const onHomeClick = async (currentIndex) => {
     const amountKudos =
       currentIndex + 1 > currentKudo ? currentIndex + 1 : currentKudo;
-    unreadedKudos.map((item, index) => {
-      if (index + 1 <= amountKudos) item.isKudoReaded = true;
+    const readedkudos = unreadedKudos.filter((item, index) => {
+      return index + 1 <= amountKudos && item;
     });
-
-    sessionStorage.setItem(
-      "kudos",
-      JSON.stringify(readedKudos.concat(unreadedKudos))
-    );
-
+    const readedIds = readedkudos.map((item) => item._id);
     try {
-      await axios("http://localhost:3001/api/updatereadedkudos");
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ids: readedIds }),
+      };
+      await fetch("http://localhost:3001/api/updatekudos", requestOptions);
       toast.info("🦄 You can check your readed Kudos on Archived Kudos!", {
         position: "top-right",
         autoClose: 5000,
@@ -53,8 +59,10 @@ export default function MainReadNewKudos() {
         progress: undefined,
         theme: "dark",
       });
+      await sleep(500);
+      navigate("/");
     } catch (e) {
-      toast.info("You can check your readed Kudos on Archived Kudos!", {
+      toast.error("Error updating Kudos!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -68,7 +76,7 @@ export default function MainReadNewKudos() {
   };
 
   const noNewKudos = (
-    <div className="bg-gradient-to-r from-primary to-indigo-900 h-full flex flex-col justify-center items-center">
+    <div className="bg-gradient-to-r from-secondary to-primary h-full flex flex-col justify-center items-center">
       <span className="text-8xl mb-6">😔</span>
       <h1 className="text-white text-lg w-1/5 text-center opacity-70">
         We have no new Kudos

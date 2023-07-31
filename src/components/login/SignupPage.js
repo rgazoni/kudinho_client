@@ -26,7 +26,7 @@ export default function SignupPage() {
       };
       return await fetch(
         "http://localhost:3001/api/auth/signup-team",
-        requestOptions
+        requestOptions,
       );
     },
     onError: (error, variables, context) => {
@@ -43,20 +43,37 @@ export default function SignupPage() {
     },
     onSuccess: async (data, variables, context) => {
       const response = await data.json();
-      toast(`🦄 An email was sent to ${variables.email}!`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      setGeneratedCode(response.team_code);
-      setIsDialogOpen(true);
+      if (!response.errors) {
+        toast(`🦄 An email was sent to ${variables.email}!`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setGeneratedCode(response.team_code);
+        setIsDialogOpen(true);
+      } else {
+        signupErrorHandler(response.errors);
+      }
     },
   });
+
+  const signupErrorHandler = (errors) => {
+    toast.info(`${errors[0].msg}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
   const formSignupSumbit = (event) => {
     event.preventDefault();

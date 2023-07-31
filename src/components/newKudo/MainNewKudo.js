@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "../common/Modal";
 import FormNewKudo from "./FormNewKudo";
 
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Dialog from "../common/Dialog";
 import { v4 as uuidv4 } from "uuid";
+import AuthContext from "../login/AuthContext";
 
 export default function MainNewKudo(props) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -16,6 +17,7 @@ export default function MainNewKudo(props) {
     from: "",
     message: "",
   });
+  const { isLogged } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const mutation = useMutation({
@@ -23,6 +25,7 @@ export default function MainNewKudo(props) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       };
       return await fetch("http://localhost:3001/api/newkudo", requestOptions);
@@ -43,15 +46,7 @@ export default function MainNewKudo(props) {
       );
     },
     onSuccess: (data, variables, context) => {
-      const allKudos = JSON.parse(sessionStorage.getItem("kudos"));
-      sessionStorage.setItem(
-        "kudos",
-        JSON.stringify([
-          ...allKudos,
-          { _id: uuidv4(), ...variables, isKudoReaded: false, _v: 0 },
-        ]),
-      );
-      toast("🦄 Your Kudo was sent!", {
+      toast("🥳 Congratulations for sending a Kudo!!!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -127,7 +122,7 @@ export default function MainNewKudo(props) {
   };
 
   return (
-    <div className="bg-gradient-to-r from-primary to-indigo-900 h-screen flex flex-col items-center justify-center">
+    <div className="bg-gradient-to-r from-secondary to-primary h-screen flex flex-col items-center justify-center">
       <Modal
         title="New Kudos 🦄"
         form="form_nk"
