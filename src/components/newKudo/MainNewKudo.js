@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Dialog from "../common/Dialog";
 import { v4 as uuidv4 } from "uuid";
 import AuthContext from "../login/AuthContext";
+import unicorn from "../../assets/icon/unicorn.svg";
 
 export default function MainNewKudo(props) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -32,7 +33,7 @@ export default function MainNewKudo(props) {
     },
     onError: (error, variables, context) => {
       toast.error(
-        "Server connection is down 😣 Your Kudo was save as a draft, please try again later.",
+        "Server connection is down. Your Kudo was save as a draft, please try again later.",
         {
           position: "top-right",
           autoClose: 5000,
@@ -46,7 +47,7 @@ export default function MainNewKudo(props) {
       );
     },
     onSuccess: (data, variables, context) => {
-      toast("🥳 Congratulations for sending a Kudo!!!", {
+      toast.success("Congratulations for sending a Kudo!!!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -124,7 +125,8 @@ export default function MainNewKudo(props) {
   return (
     <div className="bg-gradient-to-r from-secondary to-primary h-screen flex flex-col items-center justify-center">
       <Modal
-        title="New Kudos 🦄"
+        title="New Kudos "
+        titleIcon={unicorn}
         form="form_nk"
         onClickExitBtn={dialogHandler}
         primaryBtn_content="Save"

@@ -6,10 +6,6 @@ import { toast } from "react-toastify";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function CodeSignupPage(props) {
-  const [copy, setCopy] = useState({
-    value: "",
-    copied: false,
-  });
   const classes = `${
     !props.open && "hidden"
   } fixed z-10 left-0 top-0 w-full h-full bg-black/50 flex justify-center items-center`;
@@ -18,7 +14,7 @@ export default function CodeSignupPage(props) {
 
   const copyCodeHandler = () => {
     const code = document.getElementById("code-gen");
-    setCopy({ copied: true, value: code.innerHTML });
+    navigator.clipboard.writeText(code.innerHTML);
     toast.info("🦄 Your code was copied to clipboard!", {
       position: "top-right",
       autoClose: 5000,
@@ -59,13 +55,12 @@ export default function CodeSignupPage(props) {
               >
                 {props.generatedCode.toUpperCase()}
               </p>
-              <CopyToClipboard
-                text={copy.value}
+              <button
                 className="absolute left-10 p-1 rounded hover:bg-black/30 group"
-                onCopy={copyCodeHandler}
+                onClick={copyCodeHandler}
               >
                 <Copy className="h-3.5 w-3.5 group-hover:w-4 group-hover:h-4" />
-              </CopyToClipboard>
+              </button>
             </div>
             <div className="w-4/5 mt-9">
               <p className="text-center">

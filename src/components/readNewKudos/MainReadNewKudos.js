@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CarousselItem from "./CarousselItem";
 
 import { toast } from "react-toastify";
+import sad from "../../assets/icon/sad.svg";
 
 import { ChevronRight } from "feather-icons-react";
 import { ChevronLeft } from "feather-icons-react/build/IconComponents";
@@ -49,7 +50,7 @@ export default function MainReadNewKudos() {
         body: JSON.stringify({ ids: readedIds }),
       };
       await fetch("http://localhost:3001/api/updatekudos", requestOptions);
-      toast.info("🦄 You can check your readed Kudos on Archived Kudos!", {
+      toast.info("You can check your readed Kudos on Archived Kudos!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -77,7 +78,7 @@ export default function MainReadNewKudos() {
 
   const noNewKudos = (
     <div className="bg-gradient-to-r from-secondary to-primary h-full flex flex-col justify-center items-center">
-      <span className="text-8xl mb-6">😔</span>
+      <img className="mb-6" src={sad} alt="" />
       <h1 className="text-white text-lg w-1/5 text-center opacity-70">
         We have no new Kudos
       </h1>

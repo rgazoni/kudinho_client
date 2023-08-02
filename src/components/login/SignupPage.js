@@ -30,7 +30,7 @@ export default function SignupPage() {
       );
     },
     onError: (error, variables, context) => {
-      toast.error("Server connection is down 😣. Try again later!", {
+      toast.error("Server connection is down. Try again later!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -44,7 +44,7 @@ export default function SignupPage() {
     onSuccess: async (data, variables, context) => {
       const response = await data.json();
       if (!response.errors) {
-        toast(`🦄 An email was sent to ${variables.email}!`, {
+        toast.success(`An email was sent to ${variables.email}!`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FilledBtn, HollowedBtn, UnderlinedBtn } from "../common/Button";
 import happyFace from "../../assets/icon/happy_face.svg";
+import handshake from "../../assets/icon/handshake.svg";
+import crying from "../../assets/icon/crying.svg";
 import Dialog from "../common/Dialog";
 import axios from "axios";
 import { LogOut } from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../login/AuthContext";
+import kofi from "../../assets/icon/kofi.webp";
 
 export default function Main() {
   const [amount, setAmount] = useState("");
@@ -68,8 +71,19 @@ export default function Main() {
     navigate("/login");
   };
 
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noreferrer");
+  };
+
   return (
     <div className="bg-gradient-to-r from-gray-900 to-dark h-screen flex flex-col items-center justify-center">
+      <button
+        className="absolute top-8 right-28 rounded bg-gray-900 shadow-dark drop-shadow-md hover:scale-105 hover:drop-shadow-lg py-1 flex items-center justify-center"
+        onClick={() => openInNewTab("https://ko-fi.com/ramonlacerda")}
+      >
+        <img src={kofi} className="h-3.5 pl-2 pt-[2px]" alt="" />
+        <span className="pr-2 pl-1 text-sm text-gray-600">Buy me a Ko-fi!</span>
+      </button>
       <button
         className="absolute top-7 right-8 text-gray-400 bg-transparent hover:bg-gray-800
             hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
@@ -78,11 +92,11 @@ export default function Main() {
         <LogOut className="stroke-[2.5] text-gray-200 w-5 h-5" />
       </button>
       {teamName && (
-        <h4 className="text-white mb-6">
+        <h4 className="text-white mb-6 flex justify-center items-center">
           <span className="opacity-50 pr-2">
             Welcome to the {teamName} team platform
           </span>
-          👋
+          <img src={handshake} className="h-3.5" alt="" />
         </h4>
       )}
       <h1 className="flex items-center justify-center">
@@ -93,7 +107,8 @@ export default function Main() {
           </p>
         ) : (
           <p className="w-3/5 text-center text-8xl font-medium text-white mb-10">
-            We don't have new Kudos <span className="text-7xl">😢</span>
+            We don't have new Kudos
+            <img src={crying} className="h-[5.2rem] inline pb-2 pl-5" alt="" />
           </p>
         )}
       </h1>
@@ -106,7 +121,7 @@ export default function Main() {
       <div className="mt-8">
         <HollowedBtn
           onClick={openDialogHandler}
-          content="Read New Kudos"
+          content="It's Retro time!"
           className="w-72 p-3"
         />
       </div>
@@ -121,8 +136,9 @@ export default function Main() {
         close={closeDialogHandler}
         title="Start to read team Kudos!"
         primaryBtn_path="/readkudos"
-        primaryBtn_content="Read Kudos"
-        content="Are you sure that you want to read team new Kudos? Once you readed they are going to Archived Kudos section."
+        primaryBtn_content="Read Kudos anyway"
+        content="Are you sure that you want to read team new Kudos? We advise for you to 
+      read with the whole team, because once you read them, the Team new kudos moves to the Archived Kudos section."
       />
     </div>
   );

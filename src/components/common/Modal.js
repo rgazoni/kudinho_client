@@ -11,9 +11,12 @@ export default function Modal(props) {
     <>
       <div className={classes}>
         {/* Modal Header */}
-        <h1 className="text-3xl font-medium my-5 pl-8 text-white w-fit">
-          {props.title || "Empty Title"}
-        </h1>
+        <div className="flex justify-start items-center">
+          <h1 className="text-3xl font-medium my-5 pl-8 text-white w-fit">
+            {props.title || "Empty Title"}
+          </h1>
+          <img src={props.titleIcon} alt="" className="h-7 pl-2" />
+        </div>
         <button
           onClick={props.onClickExitBtn}
           className="absolute top-5.5 right-8 text-gray-400 bg-transparent hover:bg-gray-800

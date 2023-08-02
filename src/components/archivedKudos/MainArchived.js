@@ -3,6 +3,7 @@ import { FilledBtn } from "../common/Button";
 import AuthContext from "../login/AuthContext";
 import ArchivedCard from "./ArchivedCard";
 import Logo from "../../assets/icon/happy_face.svg";
+import mindBlowing from "../../assets/icon/mind-blowing.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function MainArchived() {
@@ -38,7 +39,7 @@ export default function MainArchived() {
   const noArchivedKudos = (
     <div className="h-[92vh] flex justify-center overflow-y-hidden overscroll-y-none">
       <div className="flex flex-col items-center justify-center">
-        <span className="text-7xl mb-4">🤯</span>
+        <img className="h-[4.8rem] mb-4" src={mindBlowing} alt="" />
         <h1 className="text-white text-base text-center opacity-40">
           We have no archived Kudos yet
         </h1>
@@ -64,11 +65,11 @@ export default function MainArchived() {
             currentMonth = date.getMonth() + 1;
             divider = (
               <div className="flex items-center w-full">
-                <div className="h-0.5 rounded bg-secondary w-10"></div>
-                <p className="text-primary italic font-semibold ml-6 bg-white/90 p-1 px-6 rounded">
+                <div className="h-[0.1rem] rounded bg-gray-800/30 w-10"></div>
+                <p className="text-white italic font-semibold ml-4 rounded">
                   {date.toLocaleString("default", { month: "long" })}
                 </p>
-                <div className="h-0.5 rounded bg-secondary w-full ml-6"></div>
+                <div className="h-[0.1rem] rounded bg-gray-800/30 w-full ml-4"></div>
               </div>
             );
           }

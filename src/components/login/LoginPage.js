@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import AuthContext from "./AuthContext";
+import kofi from "../../assets/icon/kofi.webp";
 
 export default function LoginPage() {
   const { login, isLogged } = useContext(AuthContext);
@@ -56,11 +57,20 @@ export default function LoginPage() {
       }
     },
   });
-
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noreferrer");
+  };
   return (
     <div className="bg-gradient-to-r from-gray-900 to-dark h-screen flex flex-col items-center justify-center">
+      <button
+        className="absolute top-8 right-28 rounded bg-gray-900 shadow-dark drop-shadow-md hover:scale-105 hover:drop-shadow-lg py-1 flex items-center justify-center"
+        onClick={() => openInNewTab("https://ko-fi.com/ramonlacerda")}
+      >
+        <img src={kofi} className="h-3.5 pl-2 pt-[2px]" alt="" />
+        <span className="pr-2 pl-1 text-sm text-gray-600">Buy me a Ko-fi!</span>
+      </button>
       <div className="flex justify-center gap-1 mb-7">
-        <img src={Logo} className="h-24 hover:animate-spin" />
+        <img src={Logo} className="h-24 hover:animate-spin" alt="" />
         <div>
           <h1 className="text-7xl text-primary font-bold">Kudinho</h1>
           <h3 className="text-white text-base opacity-40 pl-1">

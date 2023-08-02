@@ -1,20 +1,23 @@
 import React from "react";
 import { Typography, Button, Alert, Chip } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import party from "../../assets/icon/party.svg";
 
 export default function CarousselItem(props) {
   return (
     <div className="relative h-full w-full bg-gradient-to-r from-primary to-indigo-900">
       <div className="absolute inset-0 grid h-full w-full place-items-center">
         <div className="w-3/4 text-center md:w-2/4 flex flex-col justify-center items-center">
-          <Typography
-            variant="h1"
-            color="white"
-            className="mb-4 text-xl md:text-2xl lg:text-3xl font-bold opacity-80"
-          >
-            Read new kudos 🥳
-          </Typography>
-
+          <div className="flex justify-center items-center mb-4">
+            <Typography
+              variant="h1"
+              color="white"
+              className="text-xl md:text-2xl lg:text-3xl font-bold opacity-80"
+            >
+              Read new kudos
+            </Typography>
+            <img src={party} alt="" className="h-7 pl-3" />
+          </div>
           {!(props.currentIndex + 1 <= props.isNew) ? (
             <Chip color="indigo" value="✨ New" className="mb-9" />
           ) : (
